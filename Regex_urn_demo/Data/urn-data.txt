@@ -1,0 +1,68 @@
+﻿This file contains a list of urns.
+The urn parser should be able to grab all the urns from this file and properly assignt them to a data object.
+
+1. urn:isbn:0451450523
+	The 1968 book The Last Unicorn, identified by its book number.
+
+2. urn:isan:0000-0000-2CEA-0000-1-0000-0000-Y
+	The 2002 film Spider-Man, identified by its audiovisual number.
+
+3. urn:ISSN:0167-6423
+	The scientific journal Science of Computer Programming, identified by its serial number.
+
+4. urn:ietf:rfc:2648
+	The IETF's RFC 2648.
+
+5. urn:mpeg:mpeg7:schema:2001
+	The default namespace rules for MPEG-7 video metadata.
+
+6. urn:oid:2.16.840\
+	The OID for the United States.
+
+7. urn:uuid:6e8bc430-9c3a-11d9-9669-0800200c9a66
+	A version 1 UUID.
+
+8. urn:nbn:de:bvb:19-146642
+	A National Bibliography Number for a document, indicating country (de), regional network (bvb = Bibliotheksverbund Bayern), library number (19) and document number.
+
+9. urn:lex:eu:council:directive:2010-03-09;2010-19-UE
+	A directive of the European Union, using the proposed Lex URN namespace.
+
+10. urn:lsid:zoobank.org:pub:CDC8D258-8F57-41DC-B560-247E17D3DC8C
+	A Life Science Identifiers that may be resolved to http://zoobank.org/urn:lsid:zoobank.org:pub:CDC8D258-8F57-41DC-B560-247E17D3DC8C .
+
+11. urn:epc:class:lgtin:4012345.012345.998877
+	Global Trade Item Number with lot/batch number. As defined by Tag Data Standard[11] (TDS). See more examples at EPC Identification Keys
+
+12. urn:epc:id:sgtin:0614141.112345.400
+	Global Trade Item Number with an individual serial number
+
+13. urn:epc:id:sscc:0614141.1234567890
+	Serial Shipping Container Code
+
+14. urn:epc:id:sgln:0614141.12345.400
+	Global Location Number with extension
+
+15. urn:epc:id:bic:CSQU3054383
+	BIC Intermodal Container Code as per ISO 6346
+
+16. urn:epc:id:imovn:9176187
+	IMO Vessel Number of marine vessels
+
+17. urn:epc:id:gdti:0614141.12345.400
+	Global Document Type Identifier of a document instance
+
+18. urn:mrn:iala:aton:us:1234.5
+	Identifier for Marine Aids to Navigation
+
+19. urn:mrn:iala:vts:ca:ecareg
+	Identifier for Vessel Traffic Services
+
+20. urn:mrn:iala:wwy:us:atl:chba:potri
+	Identifier for Waterways
+
+21. urn:mrn:iala:pub:g1143
+	Identifier for IALA publications
+
+22. urn:microsoft:adfs:claimsxray
+	Identifier for federated identity; this example is from Claims X-Ray
