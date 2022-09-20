@@ -1,0 +1,7 @@
+﻿[
+  {
+    ContentGroupId: abc-a,
+    IsValid: true,
+    InputData: urn:abc-a:abc:123
+  }
+]

@@ -1,22 +1,18 @@
-﻿using Regex_urn_demo.Benchmark;
-using Regex_urn_demo.Benchmark.Models;
-using System.Diagnostics.CodeAnalysis;
-using System.Text;
+﻿using System.Text;
 
 namespace Regex_urn_demo.UrnValidation.Models;
 
 public class UrnDataObject : IEquatable<UrnDataObject>
 {
-    public string? ContentGroupId;
-    public string[]? SubIds;
-    public bool isValid;
-    public string inputData;
-    public RunResult runResult;
+    public string? ContentGroupId { get; set; }
+    public string[]? SubIds { get; set; }
+    public bool IsValid { get; set; }
+    public string InputData { get; set; }
 
     public UrnDataObject(string _inputData, bool _isValid)
     {
-        inputData = _inputData;
-        isValid = _isValid;
+        InputData = _inputData;
+        IsValid = _isValid;
     }
 
     public override bool Equals(object? obj) => Equals(obj as UrnDataObject);
@@ -51,7 +47,7 @@ public class UrnDataObject : IEquatable<UrnDataObject>
             }
         }
 
-        if (isValid != obj.isValid)
+        if (IsValid != obj.IsValid)
         {
             return false;
         }
@@ -63,16 +59,16 @@ public class UrnDataObject : IEquatable<UrnDataObject>
     {
         var sb = new StringBuilder();
 
-        if (inputData.Length > 30)
+        if (InputData.Length > 30)
         {
             sb.Append("Input data is to long to display. This is likely since the input was a large body of text\n");
         }
         else
         {
-            sb.Append($"Input Data: {inputData}\n");
+            sb.Append($"Input Data: {InputData}\n");
         }
 
-        sb.Append($"Urn Is Valid: {isValid}\n");
+        sb.Append($"Urn Is Valid: {IsValid}\n");
 
         sb.Append($"Content Group Id: {ContentGroupId}");
 
@@ -83,10 +79,6 @@ public class UrnDataObject : IEquatable<UrnDataObject>
                 sb.Append($"\n\tSub-ID {i + 1}: {SubIds[i]}");
             }
         }
-
-        sb.Append($"\nMatch Time: {runResult!.TotalMatchTime:0.0000}ms");
-        sb.Append($"\nParse Time: {runResult.TotalParseTime:0.0000}ms");
-        sb.Append($"\nTotal Execution Time: {runResult.TotalRunTime:0.0000}ms");
 
         return sb.ToString();
     }

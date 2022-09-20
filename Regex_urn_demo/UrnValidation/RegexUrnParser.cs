@@ -12,7 +12,7 @@ namespace Regex_urn_demo.UrnValidation
         private const string Letter = @"A-Za-z";
         // Matches only digits from 0-9
         private const string Digit = @"0-9";
-        // Matches percent encoded characters
+        // Matches allowed percent encoded characters
         private const string PercentEncodedChar = @"%(?!00)[0-9A-Fa-f]{2}";
         // Matches the allowed special characters
         private const string Delimiters = @"@\-:;!?$&=.,_~";
@@ -58,17 +58,12 @@ namespace Regex_urn_demo.UrnValidation
 
         public UrnDataObject[] GetUrnData(string input)
         {
-            var matchSw = BenchmarkRunUtils.StartNewStopwatch();
-
             var matches = RunRegex(input);
-
-            BenchmarkRunUtils.StopStopwatch(matchSw);
 
             List<UrnDataObject> data = new List<UrnDataObject>();
 
             foreach (Match match in matches)
             {
-                var parseSw = BenchmarkRunUtils.StartNewStopwatch();
                 var urnObject = new UrnDataObject(input, true);
 
                 if (match.Groups.TryGetValue("groupId", out var groupId))
@@ -80,12 +75,6 @@ namespace Regex_urn_demo.UrnValidation
                 {
                     urnObject.SubIds = subId.Captures.Select(c => c.Value).ToArray();
                 }
-
-                BenchmarkRunUtils.StopStopwatch(parseSw);
-
-                urnObject.runResult = BenchmarkRunUtils.CreateRunResult(
-                    BenchmarkRunUtils.GetElapsedMs(matchSw),
-                    BenchmarkRunUtils.GetElapsedMs(parseSw));
 
                 data.Add(urnObject);
             }

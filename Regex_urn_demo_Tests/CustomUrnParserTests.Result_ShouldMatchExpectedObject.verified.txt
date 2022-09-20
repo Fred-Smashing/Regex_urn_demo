@@ -1,0 +1,10 @@
+﻿[
+  {
+    ContentGroupId: abc-a,
+    SubIds: [
+      a1b2
+    ],
+    IsValid: true,
+    InputData: urn:abc-a:123:abc-a1b2
+  }
+]

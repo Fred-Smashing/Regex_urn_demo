@@ -11,7 +11,6 @@ namespace Regex_urn_demo.UrnValidation
 
         public UrnDataObject[] GetUrnData(string input)
         {
-            var matchSw = BenchmarkRunUtils.StartNewStopwatch();
             // Seperate any passed in text into lines ass a urn will always be on a single line
             var splits = input.Split("\n");
             List<string> urnLinesList = new List<string>();
@@ -43,13 +42,9 @@ namespace Regex_urn_demo.UrnValidation
                 }
             }
 
-            BenchmarkRunUtils.StopStopwatch(matchSw);
-
             List<UrnDataObject> dataObjects = new List<UrnDataObject>();
             foreach (var urn in urnList)
             {
-                var parseSw = BenchmarkRunUtils.StartNewStopwatch();
-
                 // A urn should always comprise of 3 parts seperated by a colon, anything else and it's not valid
                 var urnParts = urn.Split(':', 3);
 
@@ -71,15 +66,8 @@ namespace Regex_urn_demo.UrnValidation
                 }
                 else
                 {
-                    obj.isValid = false;
+                    obj.IsValid = false;
                 }
-
-                BenchmarkRunUtils.StopStopwatch(parseSw);
-
-                obj.runResult = BenchmarkRunUtils.CreateRunResult(
-                    BenchmarkRunUtils.GetElapsedMs(matchSw),
-                    BenchmarkRunUtils.GetElapsedMs(parseSw));
-
                 dataObjects.Add(obj);
             }
 

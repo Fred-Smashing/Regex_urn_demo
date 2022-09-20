@@ -1,5 +1,5 @@
-﻿using Regex_urn_demo.Benchmark;
-using Regex_urn_demo.Benchmark.Models;
+﻿using BenchmarkDotNet.Running;
+using Regex_urn_demo.Benchmark;
 using Regex_urn_demo.UrnValidation;
 using Regex_urn_demo.UrnValidation.Abstractions;
 using Regex_urn_demo.UrnValidation.Models;
@@ -46,7 +46,7 @@ namespace Regex_urn_demo.Commands
                     ParseFileCommand(args[1], args[0]);
                     break;
                 case benchmarkCmd:
-                    BenchmarkCommand(args[0]);
+                    BenchmarkCommand();
                     break;
                 default:
                     Complete();
@@ -90,30 +90,9 @@ namespace Regex_urn_demo.Commands
             Complete();
         }
 
-        private static void BenchmarkCommand(string arg)
+        private static void BenchmarkCommand()
         {
-            try
-            {
-                var numRuns = int.Parse(arg);
-
-                var regexResultSingle = BenchmarkRunner.ParseSingelUrnBenchmark(new RegexUrnParser(), numRuns);
-                var customResultSingle = BenchmarkRunner.ParseSingelUrnBenchmark(new CustomUrnParser(), numRuns);
-
-                WriteBenchmarkToConsole(regexResultSingle, "Regex Parser Single Urn Benchmark Result");
-                WriteBenchmarkToConsole(customResultSingle, "Custom Parser Single Urn Benchmark Result");
-
-                var regexResultFile = BenchmarkRunner.ParseFileBenchmark(new RegexUrnParser(), numRuns);
-                var customResultFile = BenchmarkRunner.ParseFileBenchmark(new CustomUrnParser(), numRuns);
-
-                WriteBenchmarkToConsole(regexResultFile, "Regex Parser File Benchmark Result");
-                WriteBenchmarkToConsole(customResultFile, "Custom Parser File Benchmark Result");
-            }
-            catch (FormatException)
-            {
-                throw new FormatException($"{arg} is not a valid integer number");
-            }
-
-            Console.WriteLine("Benchmark Complete");
+            BenchmarkDotNet.Reports.Summary regexSummary = BenchmarkRunner.Run<Benchmarks>();
             Complete();
         }
 
@@ -133,7 +112,7 @@ namespace Regex_urn_demo.Commands
         private static void WriteUrnDataToConsole(UrnDataObject[] dataObjects)
         {
             Console.WriteLine("Results:\n");
-            for (var i = 0; i <dataObjects.Length; i++)
+            for (var i = 0; i < dataObjects.Length; i++)
             {
                 Console.WriteLine(dataObjects[i].ToString());
 
@@ -142,11 +121,6 @@ namespace Regex_urn_demo.Commands
                     Console.WriteLine();
                 }
             }
-        }
-
-        private static void WriteBenchmarkToConsole(BenchmarkResult benchmarkResult, string title)
-        {
-            Console.WriteLine(benchmarkResult.DisplayResult(title));
         }
 
         private static void Complete()

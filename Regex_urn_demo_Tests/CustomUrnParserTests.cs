@@ -1,49 +1,41 @@
 ﻿using FluentAssertions;
 using Regex_urn_demo.UrnValidation;
-using Regex_urn_demo.UrnValidation.Models;
+using System.Text.Json;
 
 namespace Regex_urn_demo_Tests
 {
+    [UsesVerify]
     public class CustomUrnParserTests
     {
         [Theory]
-        [InlineData("urn:abcd:1234")]
-        [InlineData("urn:1234:abcd")]
-        [InlineData("urn:abc:abc-123")]
-        [InlineData("urn:abc-a:abc:123")]
-        public void ValidUrn_ShouldReturnObject(string input)
+        [InlineData("valid_1","urn:abcd:1234")]
+        [InlineData("valid_2","urn:1234:abcd")]
+        [InlineData("valid_3","urn:abc:abc-123")]
+        [InlineData("valid_4","urn:abc-a:abc:123")]
+        public async Task ValidUrn_ShouldReturnObject(string scenario, string input)
         {
             CustomUrnParser customUrnParser = new();
 
             var result = customUrnParser.GetUrnData(input);
 
-            result.Should().Satisfy(
-                i => i.inputData == input && i.isValid == true
-                );
+            result.Should().NotBeNullOrEmpty();
+
+            var json = JsonSerializer.Serialize(result);
+            await VerifyJson(json).UseParameters(scenario);
         }
 
         [Fact]
-        public void Result_ShouldMatchExpectedObject()
+        public async Task Result_ShouldMatchExpectedObject()
         {
             CustomUrnParser cutomUrnParser = new();
 
             var input = "urn:abc-a:123:abc-a1b2";
-            var expectedObject = new UrnDataObject(input, true)
-            {
-                ContentGroupId = "abc-a",
-                SubIds = new[]
-                {
-                "123",
-                "abc",
-                "a1b2"
-                }
-            };
-
             var result = cutomUrnParser.GetUrnData(input);
 
-            var equal = result[0].Equals(expectedObject);
+            result.Should().NotBeNullOrEmpty();
 
-            equal.Should().BeTrue();
+            var json = JsonSerializer.Serialize(result);
+            await VerifyJson(json);
         }
     }
 }
