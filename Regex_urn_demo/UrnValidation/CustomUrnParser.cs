@@ -1,13 +1,12 @@
-﻿using Regex_urn_demo.Benchmark;
-using Regex_urn_demo.UrnValidation.Abstractions;
+﻿using Regex_urn_demo.UrnValidation.Abstractions;
 using Regex_urn_demo.UrnValidation.Models;
 
 namespace Regex_urn_demo.UrnValidation
 {
     public class CustomUrnParser : IUrnParser
     {
-        private static char[] contentGroupDelims = { '\\', '-', '_', '.', '~' };
-        private static char[] delimiters = { '@', '\\', '-', ':', ';', '!', '?', '$', '&', '=', '.', ',', '_', '~' };
+        private readonly static char[] contentGroupDelims = { '\\', '-', '_', '.', '~' };
+        private readonly static char[] delimiters = { '@', '\\', '-', ':', ';', '!', '?', '$', '&', '=', '.', ',', '_', '~' };
 
         public UrnDataObject[] GetUrnData(string input)
         {

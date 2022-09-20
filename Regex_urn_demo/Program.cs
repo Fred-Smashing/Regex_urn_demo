@@ -1,6 +1,4 @@
-﻿using BenchmarkDotNet.Running;
-using Regex_urn_demo.Benchmark;
-using Regex_urn_demo.Commands;
+﻿using Regex_urn_demo.Commands;
 
 namespace Regex_urn_demo
 {
@@ -20,11 +18,6 @@ namespace Regex_urn_demo
                 var input = Console.ReadLine();
 
                 CommandParser.Parse(input!);
-
-                while (CommandParser.IsRunning)
-                {
-                    Console.Write(".");
-                }
             }
             while (_appRunning);
         }

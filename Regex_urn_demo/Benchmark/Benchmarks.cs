@@ -1,14 +1,13 @@
 ﻿using BenchmarkDotNet.Attributes;
 using Regex_urn_demo.UrnValidation;
 using Regex_urn_demo.UrnValidation.Models;
-using System.Security.AccessControl;
 
 namespace Regex_urn_demo.Benchmark
 {
     [SimpleJob(id: "Parser Benchmarks")]
     public class Benchmarks
     {
-        public struct FilePaths
+        private struct FilePaths
         {
             public static readonly string singleUrnFilePath = @"Data\benchmark-data.txt";
             public static readonly string urnInTextFilePath = @"Data\urn-data.txt";
@@ -53,7 +52,7 @@ namespace Regex_urn_demo.Benchmark
         [Benchmark]
         public UrnDataObject[] SinlgeUrn_RegexParser()
         {
-            return RegexParser.GetUrnData(singleLine);
+            return RegexParser.GetUrnData(singleLine!);
         }
 
         [Benchmark]
@@ -65,7 +64,7 @@ namespace Regex_urn_demo.Benchmark
         [Benchmark]
         public UrnDataObject[] SingleUrn_CustomParser()
         {
-            return CustomParser.GetUrnData(singleLine);
+            return CustomParser.GetUrnData(singleLine!);
         }
         [Benchmark]
         public UrnDataObject[] File_CustomParser()

@@ -1,8 +1,4 @@
-﻿using FluentAssertions;
-using Regex_urn_demo.UrnValidation;
-using System.Text.Json;
-
-namespace Regex_urn_demo_Tests
+﻿namespace Regex_urn_demo_Tests
 {
     [UsesVerify]
     public class CustomUrnParserTests

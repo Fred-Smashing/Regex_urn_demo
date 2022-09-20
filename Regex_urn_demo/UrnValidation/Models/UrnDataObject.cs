@@ -82,4 +82,9 @@ public class UrnDataObject : IEquatable<UrnDataObject>
 
         return sb.ToString();
     }
+
+    public override int GetHashCode()
+    {
+        return HashCode.Combine(InputData, IsValid);
+    }
 }
