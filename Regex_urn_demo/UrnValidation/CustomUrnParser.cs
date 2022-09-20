@@ -1,5 +1,7 @@
-﻿using Regex_urn_demo.UrnValidation.Abstractions;
+﻿using BenchmarkDotNet.Columns;
+using Regex_urn_demo.UrnValidation.Abstractions;
 using Regex_urn_demo.UrnValidation.Models;
+using System;
 
 namespace Regex_urn_demo.UrnValidation
 {
@@ -73,23 +75,39 @@ namespace Regex_urn_demo.UrnValidation
             return dataObjects.ToArray();
         }
 
-        private bool IsValidUrn(string[] input)
+        private static bool IsValidUrn(string[] input)
         {
-            if (input.Length != 3)
+            if (input is null)
             {
                 return false;
             }
 
-            if (input[0] != "urn" || !IsValidId(input[1], contentGroupDelims) || !IsValidId(input[2], delimiters))
+            // This is very simple validation. It does not currenly cover every edge case the Regex Implementation does
+            if (input.Length > 0 && input.Length <= 3)
             {
-                return false;
+                if (input[0] == "urn")
+                {
+                    if (IsValidId(input[1], contentGroupDelims, true))
+                    {
+                        if (IsValidId(input[2], delimiters, false))
+                        {
+                            return true;
+                        }
+                    }
+                }
             }
 
-            return true;
+            return false;
         }
 
-        private bool IsValidId(string input, char[] validDelimiters)
+        private static bool IsValidId(string input, char[] validDelimiters, bool isGroupId)
         {
+            // Urn Group Id Cannot be over 32 Characters
+            if (isGroupId && input.Length > 32)
+            {
+                return false;
+            }
+
             bool lastCharWasDelim = false;
             for (int i = 0; i < input.Length; i++)
             {
